@@ -1,6 +1,7 @@
 package com.example.m_hike;
 
 public class HikingData {
+    private int id;
     private String name;
     private String location;
     private String date;
@@ -9,7 +10,8 @@ public class HikingData {
     private String difficultLevel;
     private String description;
 
-    public HikingData(String name, String location, String date, String parkingAvailable, String lengthOfHike, String difficultLevel, String description) {
+    public HikingData(int id,String name, String location, String date, String parkingAvailable, String lengthOfHike, String difficultLevel, String description) {
+        this.id = id;
         this.name = name;
         this.location = location;
         this.date = date;
@@ -19,6 +21,9 @@ public class HikingData {
         this.description = description;
     }
 
+    public int getId() {
+        return id;
+    }
     public String getName() {
         return name;
     }
