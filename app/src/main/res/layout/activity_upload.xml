@@ -33,20 +33,12 @@
                 android:textAlignment="center"
                 android:textColor="@color/lavender"/>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@drawable/uploadimg"
-                android:id="@+id/uploadImage"
-                android:layout_marginTop="10dp"
-                android:scaleType="fitXY"/>
-
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:id="@+id/uploadTopic"
+                android:id="@+id/editTextName"
                 android:background="@drawable/lavender_border"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:padding="16dp"
                 android:hint="Enter topic name"
                 android:gravity="start|center_vertical"
@@ -54,25 +46,70 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:id="@+id/uploadDesc"
+                android:layout_height="60dp"
+                android:id="@+id/editTextLocation"
                 android:background="@drawable/lavender_border"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:padding="16dp"
-                android:hint="Enter description"
+                android:hint="Enter Location"
                 android:gravity="start|center_vertical"
                 android:textColor="@color/lavender"/>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:id="@+id/uploadLang"
+                android:id="@+id/editTextDate"
                 android:background="@drawable/lavender_border"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:padding="16dp"
-                android:hint="Enter language"
+                android:hint="Enter Date"
                 android:gravity="start|center_vertical"
-                android:textColor="@color/lavender"/>
+                android:textColor="@color/lavender"
+                android:onClick="showDatePickerDialog"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/editTextParkingAvailable"
+                android:background="@drawable/lavender_border"
+                android:layout_marginTop="10dp"
+                android:padding="16dp"
+                android:hint="Enter Parking Available"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/lavender" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/editTextLengthOfHike"
+                android:background="@drawable/lavender_border"
+                android:layout_marginTop="10dp"
+                android:padding="16dp"
+                android:hint="Enter Length Of Hike"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/lavender" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/editTextDifficultLevel"
+                android:background="@drawable/lavender_border"
+                android:layout_marginTop="10dp"
+                android:padding="16dp"
+                android:hint="Enter Difficult Level"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/lavender" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/editTextDescription"
+                android:background="@drawable/lavender_border"
+                android:layout_marginTop="10dp"
+                android:padding="16dp"
+                android:hint="Enter Description"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/lavender" />
 
             <Button
                 android:layout_width="match_parent"
@@ -80,7 +117,7 @@
                 android:text="Save"
                 android:id="@+id/saveButton"
                 android:textSize="18sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 app:cornerRadius = "20dp"/>
 
         </LinearLayout>

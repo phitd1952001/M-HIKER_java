@@ -9,59 +9,71 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class UploadActivity extends AppCompatActivity {
-
-    ImageView uploadImage;
     Button saveButton;
-    EditText uploadTopic, uploadDesc, uploadLang;
-    String imageURL;
-    Uri uri;
-
+    EditText editTextName, editTextLocation, editTextDate, editTextParkingAvailable, editTextLengthOfHike, editTextDifficultLevel, editTextDescription;
+    DatabaseHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
 
-        uploadImage = findViewById(R.id.uploadImage);
-        uploadDesc = findViewById(R.id.uploadDesc);
-        uploadTopic = findViewById(R.id.uploadTopic);
-        uploadLang = findViewById(R.id.uploadLang);
+        editTextName = findViewById(R.id.editTextName);
+        editTextLocation = findViewById(R.id.editTextLocation);
+        editTextDate = findViewById(R.id.editTextDate);
+        editTextParkingAvailable = findViewById(R.id.editTextParkingAvailable);
+        editTextLengthOfHike = findViewById(R.id.editTextLengthOfHike);
+        editTextDifficultLevel = findViewById(R.id.editTextDifficultLevel);
+        editTextDescription = findViewById(R.id.editTextDescription);
         saveButton = findViewById(R.id.saveButton);
 
-        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == Activity.RESULT_OK){
-                            Intent data = result.getData();
-                            uri = data.getData();
-                            uploadImage.setImageURI(uri);
-                        } else {
-                            Toast.makeText(UploadActivity.this, "No Image Selected", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
+        // Initialize your dbHelper here
+        dbHelper = new DatabaseHelper(this);
+
+        // Set the current date without the time to the "editTextDob" field
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDate = dateFormat.format(new Date());
+        editTextDate.setText(currentDate);
+
+
+        // initialize the datepicker with the current date
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this, null, currentYear, currentMonth, currentDay
         );
 
-        uploadImage.setOnClickListener(new View.OnClickListener() {
+        datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onClick(View view) {
-                Intent photoPicker = new Intent(Intent.ACTION_PICK);
-                photoPicker.setType("image/*");
-                activityResultLauncher.launch(photoPicker);
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                // Update EditText with the selected date
+                editTextDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+            }
+        });
+
+        editTextDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Show the DatePicker when the EditText is clicked
+                datePickerDialog.show();
             }
         });
 
@@ -74,62 +86,20 @@ public class UploadActivity extends AppCompatActivity {
     }
 
     public void saveData(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(UploadActivity.this);
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_layout);
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
-//        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Android Images")
-//                .child(uri.getLastPathSegment());
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(UploadActivity.this);
-//        builder.setCancelable(false);
-//        builder.setView(R.layout.progress_layout);
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
-//
-//        storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//
-//                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-//                while (!uriTask.isComplete());
-//                Uri urlImage = uriTask.getResult();
-//                imageURL = urlImage.toString();
-//                uploadData();
-//                dialog.dismiss();
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                dialog.dismiss();
-//            }
-//        });
-    }
-
-    public void uploadData(){
-
-        String title = uploadTopic.getText().toString();
-        String desc = uploadDesc.getText().toString();
-        String lang = uploadLang.getText().toString();
-
-        DataClass dataClass = new DataClass(title, desc, lang, imageURL);
-
-        //We are changing the child from title to currentDate,
-        // because we will be updating title as well and it may affect child value.
-
-        String currentDate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-
-//        FirebaseDatabase.getInstance().getReference("Android Tutorials").child(currentDate)
-//                .setValue(dataClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if (task.isSuccessful()){
-//                            Toast.makeText(UploadActivity.this, "Saved", Toast.LENGTH_SHORT).show();
-//                            finish();
-//                        }
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(UploadActivity.this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+        dbHelper.insertHikingRecord(
+                editTextName.getText().toString(),
+                editTextLocation.getText().toString(),
+                editTextDate.getText().toString(),
+                editTextParkingAvailable.getText().toString(),
+                editTextLengthOfHike.getText().toString(),
+                editTextDifficultLevel.getText().toString(),
+                editTextDescription.getText().toString());
+        dialog.dismiss();
     }
 }

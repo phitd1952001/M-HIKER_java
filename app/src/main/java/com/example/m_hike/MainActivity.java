@@ -39,11 +39,11 @@ public class MainActivity extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, 1);
         recyclerView.setLayoutManager(gridLayoutManager);
 
-//        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//        builder.setCancelable(false);
-//        builder.setView(R.layout.progress_layout);
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_layout);
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
         dataList = new ArrayList<>();
 
@@ -76,7 +76,8 @@ public class MainActivity extends AppCompatActivity {
                 // Add the UserData object to the list
                 dataList.add(hiking);
             }
-            cursor.close(); // Don't forget to close the cursor when you're done
+            cursor.close();
+            dialog.hide();
         }
 
         adapter = new MyAdapter(MainActivity.this, dataList, dbHelper, this);

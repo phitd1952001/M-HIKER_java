@@ -1,20 +1,18 @@
 package com.example.m_hike;
 
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,21 +52,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.textViewLengthOfHike.setText("Length Of Hike: "+ dataList.get(position).getLengthOfHike());
         holder.textViewDifficultLevel.setText("Difficult Level: "+ dataList.get(position).getDifficultLevel());
         holder.textViewDescription.setText("Description: "+ dataList.get(position).getDescription());
-
-//        holder.recCard.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(context, DetailActivity.class);
-//                intent.putExtra("Name", dataList.get(holder.getAdapterPosition()).getName());
-//                intent.putExtra("Location", dataList.get(holder.getAdapterPosition()).getLocation());
-//                intent.putExtra("Date", dataList.get(holder.getAdapterPosition()).getDate());
-//                intent.putExtra("Parking Available", dataList.get(holder.getAdapterPosition()).getParkingAvailable());
-//                intent.putExtra("Length Of Hike", dataList.get(holder.getAdapterPosition()).getLengthOfHike());
-//                intent.putExtra("Difficult Level", dataList.get(holder.getAdapterPosition()).getDifficultLevel());
-//                intent.putExtra("Description", dataList.get(holder.getAdapterPosition()).getDescription());
-//                context.startActivity(intent);
-//            }
-//        });
     }
 
     @Override
@@ -120,16 +103,35 @@ class MyViewHolder extends RecyclerView.ViewHolder{
                 if (position != RecyclerView.NO_POSITION) {
                     HikingData hikingData = dataList.get(position);
                     int id = hikingData.getId();
-                    dbHelper.deleteHikingRecord(id);
 
-                    // Remove the deleted item from the data list
-                    dataList.remove(position);
+                    // Show a confirmation dialog
+                    AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+                    builder.setTitle("Confirm Deletion");
+                    builder.setMessage("Are you sure you want to delete this item?");
+                    builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // User confirmed deletion
+                            dbHelper.deleteHikingRecord(id);
 
-                    // Notify the adapter that the data has changed
-                    adapter.resetDataList(dataList);
+                            // Remove the deleted item from the data list
+                            dataList.remove(position);
+
+                            // Notify the adapter that the data has changed
+                            adapter.resetDataList(dataList);
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // User canceled deletion, do nothing
+                        }
+                    });
+                    builder.show();
                 }
             }
         });
+
 
 //        buttonUpdate.setOnClickListener(new View.OnClickListener() {
 //            @Override
