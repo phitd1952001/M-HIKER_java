@@ -101,5 +101,9 @@ public class UploadActivity extends AppCompatActivity {
                 editTextDifficultLevel.getText().toString(),
                 editTextDescription.getText().toString());
         dialog.dismiss();
+
+        // Gọi phương thức refreshData() trong MainActivity để cập nhật danh sách dữ liệu
+        MainActivity mainActivity = (MainActivity) getParent();
+        mainActivity.refreshData();
     }
 }

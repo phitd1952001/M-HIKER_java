@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new MyAdapter(MainActivity.this, dataList, dbHelper, this);
         recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged(); // Cập nhật RecyclerView
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -105,6 +106,33 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    //refreshData create
+    @SuppressLint("Range")
+    public void refreshData() {
+        dataList.clear(); // Xóa dữ liệu hiện tại
+        Cursor cursor = dbHelper.getAllHikingRecords();
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                // Lấy dữ liệu từ cursor và thêm vào danh sách
+                 int id = cursor.getInt(cursor.getColumnIndex("id"));
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                String location = cursor.getString(cursor.getColumnIndex("location"));
+                String date = cursor.getString(cursor.getColumnIndex("date"));
+                String parkingAvailable = cursor.getString(cursor.getColumnIndex("parkingAvailable"));
+                String lengthOfHike = cursor.getString(cursor.getColumnIndex("lengthOfHike"));
+                String difficultLevel = cursor.getString(cursor.getColumnIndex("difficultLevel"));
+                String description = cursor.getString(cursor.getColumnIndex("description"));
+
+                HikingData hiking = new HikingData(id, name, location, date, parkingAvailable, lengthOfHike, difficultLevel, description);
+
+                dataList.add(hiking);
+            }
+            cursor.close();
+        }
+        adapter.notifyDataSetChanged(); // Cập nhật RecyclerView
+    }
+
     public void searchList(String text){
         ArrayList<HikingData> searchList = new ArrayList<>();
         for (HikingData dataClass: dataList){

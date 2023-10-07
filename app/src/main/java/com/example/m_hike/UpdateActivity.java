@@ -35,11 +35,11 @@ public class UpdateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
 
-        updateButton = findViewById(R.id.updateButton);
-        updateDesc = findViewById(R.id.updateDesc);
-        updateImage = findViewById(R.id.updateImage);
-        updateLang = findViewById(R.id.updateLang);
-        updateTitle = findViewById(R.id.updateTitle);
+      //  updateButton = findViewById(R.id.updateButton);
+       // updateDesc = findViewById(R.id.updateDesc);
+       // updateImage = findViewById(R.id.updateImage);
+        //updateLang = findViewById(R.id.updateLang);
+       // updateTitle = findViewById(R.id.updateTitle);
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
