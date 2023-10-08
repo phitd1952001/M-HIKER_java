@@ -26,7 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class UploadActivity extends AppCompatActivity {
-    Button saveButton;
+    Button saveButton, backButton;
     EditText editTextName, editTextLocation, editTextDate, editTextParkingAvailable, editTextLengthOfHike, editTextDifficultLevel, editTextDescription;
     DatabaseHelper dbHelper;
     @Override
@@ -42,6 +42,7 @@ public class UploadActivity extends AppCompatActivity {
         editTextDifficultLevel = findViewById(R.id.editTextDifficultLevel);
         editTextDescription = findViewById(R.id.editTextDescription);
         saveButton = findViewById(R.id.saveButton);
+        Button backButton = findViewById(R.id.backButton);
 
         // Initialize your dbHelper here
         dbHelper = new DatabaseHelper(this);
@@ -74,6 +75,13 @@ public class UploadActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Show the DatePicker when the EditText is clicked
                 datePickerDialog.show();
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // This will simulate the system's back button press
             }
         });
 
