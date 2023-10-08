@@ -76,8 +76,6 @@ public class UpdateActivity extends AppCompatActivity {
         });
     }
 
-
-
     private void updateData() {
         // Lấy dữ liệu từ các trường chỉnh sửa
         String name = editTextName.getText().toString().trim();
@@ -94,6 +92,11 @@ public class UpdateActivity extends AppCompatActivity {
             int rowsUpdated = dbHelper.updateHikingRecord(id, name, location, date, parkingAvailable, lengthOfHike, difficultLevel, description);
             if (rowsUpdated > 0) {
                 Toast.makeText(UpdateActivity.this, "Dữ liệu đã được cập nhật.", Toast.LENGTH_SHORT).show();
+
+                // Gọi phương thức refreshData() trong MainActivity để cập nhật danh sách dữ liệu
+                MainActivity mainActivity = (MainActivity) getParent();
+                mainActivity.refreshData();
+
                 setResult(RESULT_OK); // Đặt kết quả là thành công
                 finish(); // Kết thúc hoạt động cập nhật
             } else {
