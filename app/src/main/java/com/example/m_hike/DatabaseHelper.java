@@ -1,5 +1,6 @@
 package com.example.m_hike;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -79,7 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Query Hiking all records from the table
-    public Cursor getAllHikingRecords() {
+    public Cursor getAllHikingRecords(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.query(TABLE_NAME_Hiking, null, null, null, null, null, null);
     }
@@ -99,6 +100,48 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return rowsUpdated;
     }
+
+    @SuppressLint("Range")
+    public HikingData getHikingRecordById(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = COLUMN_ID_Hiking + "=?";
+        String[] selectionArgs = {String.valueOf(id)};
+        Cursor cursor = db.query(TABLE_NAME_Hiking, null, selection, selectionArgs, null, null, null);
+
+        HikingData hikingData = null;
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                int Id = cursor.getColumnIndex("id");
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                String location = cursor.getString(cursor.getColumnIndex("location"));
+                String date = cursor.getString(cursor.getColumnIndex("date"));
+                String parkingAvailable = cursor.getString(cursor.getColumnIndex("parkingAvailable"));
+                String lengthOfHike = cursor.getString(cursor.getColumnIndex("lengthOfHike"));
+                String difficultLevel = cursor.getString(cursor.getColumnIndex("difficultLevel"));
+                String description = cursor.getString(cursor.getColumnIndex("description"));
+
+                // Create a HikingData object for this record
+                hikingData = new HikingData(
+                        cursor.getInt(Id),
+                        name,
+                        location,
+                        date,
+                        parkingAvailable,
+                        lengthOfHike,
+                        difficultLevel,
+                        description
+                );
+            }
+
+            cursor.close();
+        }
+
+        db.close();
+        return hikingData;
+    }
+
+
 
     // Delete Hiking a record from the table
     public int deleteHikingRecord(long id) {

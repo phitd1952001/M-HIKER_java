@@ -132,6 +132,28 @@ class MyViewHolder extends RecyclerView.ViewHolder{
             }
         });
 
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Handle the Update button click
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    // Lấy dữ liệu của mục được nhấp
+                    HikingData hikingData = dataList.get(position);
+                    int id = hikingData.getId();
+
+                    // Tạo Intent để chuyển sang UpdateActivity
+                    Intent intent = new Intent(itemView.getContext(), UpdateActivity.class);
+
+                    // Đính kèm dữ liệu của mục được nhấp vào Intent để chuyển sang UpdateActivity
+                    intent.putExtra("id", String.valueOf(id)); // Đảm bảo id được truyền đúng kiểu dữ liệu
+
+                    // Khởi chạy UpdateActivity
+                    itemView.getContext().startActivity(intent);
+                }
+            }
+        });
+
 
 //        buttonUpdate.setOnClickListener(new View.OnClickListener() {
 //            @Override

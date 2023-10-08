@@ -1,6 +1,5 @@
 package com.example.m_hike;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -26,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     SearchView searchView;
     DatabaseHelper dbHelper;
 
+    @SuppressLint("Range")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,12 +56,13 @@ public class MainActivity extends AppCompatActivity {
 //        dbHelper.insertHikingRecord("Hiking Trip 2", "Location 2", "2023-10-06", "No", "5 miles", "Easy", "An easy and short hike.");
 //        dbHelper.insertHikingRecord("Hiking Trip 3", "Location 3", "2023-10-07", "Yes", "15 miles", "Difficult", "A challenging hike with steep terrain.");
 
-        Cursor cursor = dbHelper.getAllHikingRecords();
+        @SuppressLint("Range") int id = 0;
+        Cursor cursor = dbHelper.getAllHikingRecords(id);
 
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 // Extract data from the cursor for each record
-                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                id = cursor.getInt(cursor.getColumnIndex("id"));
                 @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("name"));
                 @SuppressLint("Range") String location = cursor.getString(cursor.getColumnIndex("location"));
                 @SuppressLint("Range") String date = cursor.getString(cursor.getColumnIndex("date"));
@@ -111,11 +112,12 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("Range")
     public void refreshData() {
         dataList.clear(); // Xóa dữ liệu hiện tại
-        Cursor cursor = dbHelper.getAllHikingRecords();
+        int id = 0;
+        Cursor cursor = dbHelper.getAllHikingRecords(id);
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 // Lấy dữ liệu từ cursor và thêm vào danh sách
-                 int id = cursor.getInt(cursor.getColumnIndex("id"));
+                id = cursor.getInt(cursor.getColumnIndex("id"));
                 String name = cursor.getString(cursor.getColumnIndex("name"));
                 String location = cursor.getString(cursor.getColumnIndex("location"));
                 String date = cursor.getString(cursor.getColumnIndex("date"));
