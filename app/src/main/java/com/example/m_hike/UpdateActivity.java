@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 public class UpdateActivity extends AppCompatActivity {
 
     EditText editTextName, editTextLocation, editTextDate, editTextParkingAvailable, editTextLengthOfHike, editTextDifficultLevel, editTextDescription;
@@ -22,7 +24,7 @@ public class UpdateActivity extends AppCompatActivity {
 
         editTextName = findViewById(R.id.editText_Name);
         editTextLocation = findViewById(R.id.editText_Location);
-        editTextDate = findViewById(R.id.editText_Date);
+        editTextDate = findViewById(R.id.editTextDate);
         editTextParkingAvailable = findViewById(R.id.editText_ParkingAvailable);
         editTextLengthOfHike = findViewById(R.id.editText_LengthOfHike);
         editTextDifficultLevel = findViewById(R.id.editText_DifficultLevel);
@@ -77,6 +79,25 @@ public class UpdateActivity extends AppCompatActivity {
     }
 
     private void updateData() {
+        EditText editTextName = findViewById(R.id.editText_Name);
+        EditText editTextLocation = findViewById(R.id.editText_Location);
+        EditText editTextParkingAvailable = findViewById(R.id.editText_ParkingAvailable);
+        EditText editTextLengthOfHike = findViewById(R.id.editText_LengthOfHike);
+        EditText editTextDifficultLevel = findViewById(R.id.editText_DifficultLevel);
+
+        TextInputLayout textInputLayoutName = findViewById(R.id.textInputLayoutName);
+        TextInputLayout textInputLayoutLocation = findViewById(R.id.textInputLayoutLocation);
+        TextInputLayout textInputLayoutParkingAvailable = findViewById(R.id.textInputLayoutParkingAvailable);
+        TextInputLayout textInputLayoutLengthOfHike = findViewById(R.id.textInputLayoutLengthOfHike);
+        TextInputLayout textInputLayoutDifficultLevel = findViewById(R.id.textInputLayoutDifficultLevel);
+
+        // Ẩn thông báo lỗi và xóa dữ liệu trong EditText
+        textInputLayoutName.setErrorEnabled(false); // Tắt hiển thị lỗi
+        textInputLayoutLocation.setErrorEnabled(false); // Tắt hiển thị lỗi
+        textInputLayoutParkingAvailable.setErrorEnabled(false); // Tắt hiển thị lỗi
+        textInputLayoutLengthOfHike.setErrorEnabled(false); // Tắt hiển thị lỗi
+        textInputLayoutDifficultLevel.setErrorEnabled(false); // Tắt hiển thị lỗi
+
         // Lấy dữ liệu từ các trường chỉnh sửa
         String name = editTextName.getText().toString().trim();
         String location = editTextLocation.getText().toString().trim();
@@ -85,6 +106,38 @@ public class UpdateActivity extends AppCompatActivity {
         String lengthOfHike = editTextLengthOfHike.getText().toString().trim();
         String difficultLevel = editTextDifficultLevel.getText().toString().trim();
         String description = editTextDescription.getText().toString().trim();
+
+        // Kiểm tra và hiển thị thông báo lỗi nếu các trường bắt buộc không hợp lệ
+        boolean isValid = true;
+
+        if (name.isEmpty()) {
+            textInputLayoutName.setError("Name is required");
+            isValid = false;
+        }
+        if (location.isEmpty()) {
+            textInputLayoutLocation.setError("Location is required");
+            isValid = false;
+        }
+        if (parkingAvailable.isEmpty()) {
+            textInputLayoutParkingAvailable.setError("Parking Available is required");
+            isValid = false;
+        }
+        if (lengthOfHike.isEmpty()) {
+            textInputLayoutLengthOfHike.setError("Length Of Hike is required");
+            isValid = false;
+        }
+        if (difficultLevel.isEmpty()) {
+            textInputLayoutDifficultLevel.setError("Difficult Level is required");
+            isValid = false;
+        }
+        else {
+            textInputLayoutName.setError(null); // Xóa thông báo lỗi nếu trường hợp lệ
+        }
+
+        if (!isValid) {
+            // Hiển thị thông báo lỗi và không lưu dữ liệu nếu có lỗi
+            return;
+        }
 
         // Đảm bảo bạn có ID hợp lệ để cập nhật
         if (id > 0) {

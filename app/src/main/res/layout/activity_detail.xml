@@ -54,14 +54,19 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerObservationView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:scrollbars="vertical" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="125dp"
+        android:orientation="horizontal">
 
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerObservationView"
+            android:layout_width="match_parent"
+            android:layout_height="606dp"
+            android:layout_marginTop="10dp"
+            android:scrollbars="vertical" />
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabCreate"

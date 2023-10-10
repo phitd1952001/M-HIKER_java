@@ -11,6 +11,8 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,6 +22,7 @@ public class UpdateObservationActivity extends AppCompatActivity {
     EditText editTextName, editTextDate, editTextComment;
     DatabaseHelper dbHelper;
     int hikingId;
+    int observationId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class UpdateObservationActivity extends AppCompatActivity {
         String name = intent.getStringExtra("name");
         String date = intent.getStringExtra("date");
         String comment = intent.getStringExtra("comment");
+        observationId = intent.getIntExtra("id", 0);
 
 
         editTextName.setText(name);
@@ -89,13 +93,41 @@ public class UpdateObservationActivity extends AppCompatActivity {
     }
 
     public void saveData() {
+        EditText editTextName = findViewById(R.id.editText_Name);
+
+        TextInputLayout textInputLayoutName = findViewById(R.id.textInputLayoutName);
+
+        // Ẩn thông báo lỗi và xóa dữ liệu trong EditText
+        textInputLayoutName.setErrorEnabled(false); // Tắt hiển thị lỗi
+
+        // Lấy dữ liệu từ các trường chỉnh sửa
+        String name = editTextName.getText().toString().trim();
+
+        // Kiểm tra và hiển thị thông báo lỗi nếu các trường bắt buộc không hợp lệ
+        boolean isValid = true;
+
+        if (name.isEmpty()) {
+            textInputLayoutName.setError("Name is required");
+            isValid = false;
+        }
+        else {
+            textInputLayoutName.setError(null); // Xóa thông báo lỗi nếu trường hợp lệ
+        }
+
+        if (!isValid) {
+            // Hiển thị thông báo lỗi và không lưu dữ liệu nếu có lỗi
+            return;
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(UpdateObservationActivity.this);
         builder.setCancelable(false);
         builder.setView(R.layout.progress_layout);
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        dbHelper.insertObservationRecord(
+
+        dbHelper.updateObservationRecord(
+                observationId,
                 editTextName.getText().toString(),
                 editTextDate.getText().toString(),
                 editTextComment.getText().toString(),

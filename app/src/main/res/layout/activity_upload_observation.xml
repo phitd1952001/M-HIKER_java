@@ -52,16 +52,24 @@
 
             </LinearLayout>
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutName"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:id="@+id/editTextName"
-                android:background="@drawable/lavender_border"
-                android:layout_marginTop="20dp"
-                android:padding="16dp"
-                android:hint="Enter topic name"
-                android:gravity="start|center_vertical"
-                android:textColor="@color/lavender"/>
+                android:layout_height="wrap_content"
+                android:hint="Enter Name"
+                app:boxBackgroundMode="outline"
+                app:helperTextEnabled="false"
+                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+
+                <EditText
+                    android:padding="16dp"
+                    android:id="@+id/editTextName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:background="@drawable/lavender_border"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <EditText
                 android:layout_width="match_parent"

@@ -6,19 +6,27 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Notification;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -29,6 +37,7 @@ public class UploadActivity extends AppCompatActivity {
     Button saveButton, backButton;
     EditText editTextName, editTextLocation, editTextDate, editTextParkingAvailable, editTextLengthOfHike, editTextDifficultLevel, editTextDescription;
     DatabaseHelper dbHelper;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,25 +102,85 @@ public class UploadActivity extends AppCompatActivity {
         });
     }
 
-    public void saveData(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(UploadActivity.this);
-        builder.setCancelable(false);
-        builder.setView(R.layout.progress_layout);
-        AlertDialog dialog = builder.create();
-        dialog.show();
+    public void saveData() {
+        EditText editTextName = findViewById(R.id.editTextName);
+        EditText editTextLocation = findViewById(R.id.editTextLocation);
+        EditText editTextParkingAvailable = findViewById(R.id.editTextParkingAvailable);
+        EditText editTextLengthOfHike = findViewById(R.id.editTextLengthOfHike);
+        EditText editTextDifficultLevel = findViewById(R.id.editTextDifficultLevel);
 
-        dbHelper.insertHikingRecord(
-                editTextName.getText().toString(),
-                editTextLocation.getText().toString(),
-                editTextDate.getText().toString(),
-                editTextParkingAvailable.getText().toString(),
-                editTextLengthOfHike.getText().toString(),
-                editTextDifficultLevel.getText().toString(),
-                editTextDescription.getText().toString());
-        dialog.dismiss();
+        TextInputLayout textInputLayoutName = findViewById(R.id.textInputLayoutName);
+        TextInputLayout textInputLayoutLocation = findViewById(R.id.textInputLayoutLocation);
+        TextInputLayout textInputLayoutParkingAvailable = findViewById(R.id.textInputLayoutParkingAvailable);
+        TextInputLayout textInputLayoutLengthOfHike = findViewById(R.id.textInputLayoutLengthOfHike);
+        TextInputLayout textInputLayoutDifficultLevel = findViewById(R.id.textInputLayoutDifficultLevel);
 
-        // Gọi phương thức refreshData() trong MainActivity để cập nhật danh sách dữ liệu
-        MainActivity mainActivity = (MainActivity) getParent();
-        mainActivity.refreshData();
+        // Ẩn thông báo lỗi và xóa dữ liệu trong EditText
+        textInputLayoutName.setErrorEnabled(false); // Tắt hiển thị lỗi
+        textInputLayoutLocation.setErrorEnabled(false); // Tắt hiển thị lỗi
+        textInputLayoutParkingAvailable.setErrorEnabled(false); // Tắt hiển thị lỗi
+        textInputLayoutLengthOfHike.setErrorEnabled(false); // Tắt hiển thị lỗi
+        textInputLayoutDifficultLevel.setErrorEnabled(false); // Tắt hiển thị lỗi
+
+
+        // Lấy dữ liệu từ các trường nhập
+        String name = editTextName.getText().toString().trim();
+        String location = editTextLocation.getText().toString().trim();
+        String date = editTextDate.getText().toString().trim();
+        String parkingAvailable = editTextParkingAvailable.getText().toString().trim();
+        String lengthOfHike = editTextLengthOfHike.getText().toString().trim();
+        String difficultLevel = editTextDifficultLevel.getText().toString().trim();
+        String description = editTextDescription.getText().toString().trim();
+
+        // Kiểm tra và hiển thị thông báo lỗi nếu các trường bắt buộc không hợp lệ
+        boolean isValid = true;
+
+        if (name.isEmpty()) {
+            textInputLayoutName.setError("Name is required");
+            isValid = false;
+        }
+        if (location.isEmpty()) {
+            textInputLayoutLocation.setError("Location is required");
+                isValid = false;
+        }
+        if (parkingAvailable.isEmpty()) {
+            textInputLayoutParkingAvailable.setError("Parking Available is required");
+            isValid = false;
+        }
+        if (lengthOfHike.isEmpty()) {
+            textInputLayoutLengthOfHike.setError("Length Of Hike is required");
+            isValid = false;
+        }
+        if (difficultLevel.isEmpty()) {
+            textInputLayoutDifficultLevel.setError("Difficult Level is required");
+            isValid = false;
+        }
+        else {
+            textInputLayoutName.setError(null); // Xóa thông báo lỗi nếu trường hợp lệ
+        }
+
+        if (!isValid) {
+            // Hiển thị thông báo lỗi và không lưu dữ liệu nếu có lỗi
+            return;
+        }
+
+        // Thực hiện thêm dữ liệu vào cơ sở dữ liệu
+        long newRowId = dbHelper.insertHikingRecord(name, location, date, parkingAvailable, lengthOfHike, difficultLevel, description);
+
+        if (newRowId != -1) {
+            // Dữ liệu đã được thêm thành công
+            Toast.makeText(this, "Dữ liệu đã được thêm thành công.", Toast.LENGTH_SHORT).show();
+
+            // Gọi phương thức refreshData() trong MainActivity để cập nhật danh sách dữ liệu
+            MainActivity mainActivity = (MainActivity) getParent();
+            mainActivity.refreshData();
+
+            // Đóng Activity UploadActivity và quay lại MainActivity
+            finish();
+        } else {
+            // Xử lý lỗi khi thêm dữ liệu không thành công (ví dụ: hiển thị thông báo)
+            Toast.makeText(this, "Lỗi khi thêm dữ liệu.", Toast.LENGTH_SHORT).show();
+        }
     }
+
 }

@@ -114,7 +114,7 @@ class MyViewHolderObservations extends RecyclerView.ViewHolder{
                     Intent intent = new Intent(itemView.getContext(), UpdateObservationActivity.class);
 
                     // Đính kèm dữ liệu của mục được nhấp vào Intent để chuyển sang UpdateObservationActivity
-                    intent.putExtra("id", String.valueOf(id)); // Đảm bảo id được truyền đúng kiểu dữ liệu
+                    intent.putExtra("id", id); // Đảm bảo id được truyền đúng kiểu dữ liệu
                     // Đính kèm giá trị hikingId vào Intent
                     intent.putExtra("hikingId", hikingId);
 

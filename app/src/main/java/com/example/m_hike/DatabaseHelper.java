@@ -173,7 +173,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Update Observation a record in the table
-    public int updateObservationRecord(long id, String name, String time, String comment, int hikingId) {
+    public int updateObservationRecord(int id, String name, String time, String comment, int hikingId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_Observation, name);

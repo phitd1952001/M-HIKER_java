@@ -50,12 +50,6 @@ public class MainActivity extends AppCompatActivity {
         // Initialize your dbHelper here
         dbHelper = new DatabaseHelper(this);
 
-
-//        // Thêm 3 bản ghi dữ liệu mẫu vào bảng Hiking
-//        dbHelper.insertHikingRecord("Hiking Trip 1", "Location 1", "2023-10-05", "Yes", "10 miles", "Intermediate", "A beautiful hiking trip.");
-//        dbHelper.insertHikingRecord("Hiking Trip 2", "Location 2", "2023-10-06", "No", "5 miles", "Easy", "An easy and short hike.");
-//        dbHelper.insertHikingRecord("Hiking Trip 3", "Location 3", "2023-10-07", "Yes", "15 miles", "Difficult", "A challenging hike with steep terrain.");
-
         @SuppressLint("Range") int id = 0;
         Cursor cursor = dbHelper.getAllHikingRecords(id);
 
