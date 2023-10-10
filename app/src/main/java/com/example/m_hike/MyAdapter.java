@@ -69,7 +69,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
 
     TextView textViewName,textViewLocation, textViewDate, textViewParkingAvailable, textViewLengthOfHike, textViewDifficultLevel, textViewDescription;
     CardView recCard;
-    Button buttonDelete, buttonUpdate;
+    Button buttonDelete, buttonUpdate, buttonViewDetails;
     List<HikingData> dataList;
     DatabaseHelper dbHelper;
     MyAdapter adapter;
@@ -93,6 +93,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
         // Initialize the buttons
         buttonDelete = itemView.findViewById(R.id.btnDelete);
         buttonUpdate = itemView.findViewById(R.id.btnUpdate);
+        buttonViewDetails = itemView.findViewById(R.id.btnViewDetails);
 
         // Set click listeners for the buttons
         buttonDelete.setOnClickListener(new View.OnClickListener() {
@@ -155,17 +156,20 @@ class MyViewHolder extends RecyclerView.ViewHolder{
         });
 
 
-//        buttonUpdate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                // Handle the Update button click
-//                int position = getAdapterPosition();
-//                if (position != RecyclerView.NO_POSITION) {
-//                    // Call a method to update the item based on the position
-//                    // For example, you can use an interface/callback to communicate with the activity/fragment
-//                }
-//            }
-//        });
-    }
+        buttonViewDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    HikingData hikingData = dataList.get(position);
+                    int selectedHikingId = hikingData.getId(); // Lấy hikingId từ dữ liệu HikingData
 
+                    // Truyền hikingId qua DetailActivity
+                    Intent intent = new Intent(itemView.getContext(), DetailActivity.class);
+                    intent.putExtra("hikingId", selectedHikingId);
+                    itemView.getContext().startActivity(intent);
+                }
+            }
+        });
+    }
 }

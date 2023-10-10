@@ -185,11 +185,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rowsUpdated;
     }
 
+
+
     // Delete Observation a record from the table
     public int deleteObservationRecord(long id) {
         SQLiteDatabase db = this.getWritableDatabase();
         int rowsDeleted = db.delete(TABLE_NAME_Observation, COLUMN_ID_Observation + "=?", new String[]{String.valueOf(id)});
         db.close();
         return rowsDeleted;
+    }
+
+    // Get an ObservationData record by its ID
+    @SuppressLint("Range")
+    public ObservationData getObservationRecordById(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] projection = {
+                COLUMN_ID_Observation,
+                COLUMN_NAME_Observation,
+                COLUMN_Time,
+                COLUMN_Comment,
+                COLUMN_HikingId
+        };
+        String selection = COLUMN_ID_Observation + "=?";
+        String[] selectionArgs = {String.valueOf(id)};
+        Cursor cursor = db.query(TABLE_NAME_Observation, projection, selection, selectionArgs, null, null, null);
+
+        ObservationData observationData = null;
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int obsId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID_Observation));
+            String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_Observation));
+            String time = cursor.getString(cursor.getColumnIndex(COLUMN_Time));
+            String comment = cursor.getString(cursor.getColumnIndex(COLUMN_Comment));
+            int hikingId = cursor.getInt(cursor.getColumnIndex(COLUMN_HikingId));
+
+            observationData = new ObservationData(obsId, name, time, comment, hikingId);
+            cursor.close();
+        }
+
+        db.close();
+        return observationData;
     }
 }

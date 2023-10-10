@@ -6,12 +6,18 @@ public class ObservationData {
     private String comment;
     private int hikingId;
 
-    public ObservationData(String name, String time, String comment, int hikingId) {
+
+    private int id;
+
+    public ObservationData(int id, String name, String time, String comment, int hikingId) {
         this.name = name;
         this.time = time;
         this.comment = comment;
+        this.id = id;
         this.hikingId = hikingId;
     }
+
+
 
     public String getName() {
         return name;
@@ -42,6 +48,14 @@ public class ObservationData {
     }
 
     public void setHikingId(int hikingId) {
-        this.hikingId = hikingId;
+        this.hikingId = Integer.parseInt(String.valueOf(hikingId));
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
