@@ -98,6 +98,8 @@
                     android:gravity="start|center_vertical"
                     android:inputType="text"
                     android:onClick="showDatePickerDialog"
+                    android:focusable="false"
+                    android:clickable="true"
                     android:paddingTop="22dp"
                     android:textColor="@color/lavender" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -113,7 +115,6 @@
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
                 app:helperTextEnabled="false"
-                android:required="true"
                 app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
 
                 <EditText

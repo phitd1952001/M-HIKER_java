@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Notification;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -24,6 +25,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -32,6 +34,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class UploadActivity extends AppCompatActivity {
     Button saveButton, backButton;
@@ -56,17 +59,17 @@ public class UploadActivity extends AppCompatActivity {
         // Initialize your dbHelper here
         dbHelper = new DatabaseHelper(this);
 
-        // Set the current date without the time to the "editTextDob" field
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String currentDate = dateFormat.format(new Date());
-        editTextDate.setText(currentDate);
+        // Set the current date and time to the "editTextDate" field
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm a", Locale.getDefault());
+        String currentDateTime = dateTimeFormat.format(new Date());
+        editTextDate.setText(currentDateTime);
 
-
-        // initialize the datepicker with the current date
+        // Initialize the DatePickerDialog with the current date
         Calendar calendar = Calendar.getInstance();
         int currentYear = calendar.get(Calendar.YEAR);
         int currentMonth = calendar.get(Calendar.MONTH);
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+
         final DatePickerDialog datePickerDialog = new DatePickerDialog(
                 this, null, currentYear, currentMonth, currentDay
         );
@@ -74,8 +77,32 @@ public class UploadActivity extends AppCompatActivity {
         datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                // Update EditText with the selected date
-                editTextDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                // Set the date in a Calendar instance
+                Calendar selectedDate = Calendar.getInstance();
+                selectedDate.set(year, month, dayOfMonth);
+
+                // Initialize a TimePickerDialog for selecting the time
+                int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                int currentMinute = calendar.get(Calendar.MINUTE);
+                TimePickerDialog timePickerDialog = new TimePickerDialog(
+                        UploadActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                selectedDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                                selectedDate.set(Calendar.MINUTE, minute);
+
+                                // Format and set the selected date and time to the "editTextDate" field
+                                SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                                String selectedDateTime = dateTimeFormat.format(selectedDate.getTime());
+                                editTextDate.setText(selectedDateTime);
+                            }
+                        },
+                        currentHour,
+                        currentMinute,
+                        false
+                );
+                timePickerDialog.show();
             }
         });
 

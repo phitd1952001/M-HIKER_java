@@ -22,7 +22,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/lavender_border"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="15dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                 android:id="@+id/textInputLayoutName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="6dp"
                 android:hint="Enter your name"
                 app:boxBackgroundMode="filled"
                 app:boxStrokeColor="@color/white"
@@ -119,6 +119,8 @@
                     android:gravity="start|center_vertical"
                     android:inputType="text"
                     android:onClick="showDatePickerDialog"
+                    android:focusable="false"
+                    android:clickable="true"
                     android:paddingTop="22dp"
                     android:textColor="@color/lavender" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -204,7 +206,6 @@
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
                 app:helperTextEnabled="false"
-                android:required="true"
                 app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
 
                 <EditText
@@ -222,7 +223,7 @@
                 android:id="@+id/UpdateButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="6dp"
                 android:text="Update"
                 android:textSize="18sp"
                 app:cornerRadius="20dp" />
