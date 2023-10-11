@@ -103,24 +103,20 @@ public class UploadActivity extends AppCompatActivity {
     }
 
     public void saveData() {
-        EditText editTextName = findViewById(R.id.editTextName);
-        EditText editTextLocation = findViewById(R.id.editTextLocation);
-        EditText editTextParkingAvailable = findViewById(R.id.editTextParkingAvailable);
-        EditText editTextLengthOfHike = findViewById(R.id.editTextLengthOfHike);
-        EditText editTextDifficultLevel = findViewById(R.id.editTextDifficultLevel);
-
         TextInputLayout textInputLayoutName = findViewById(R.id.textInputLayoutName);
         TextInputLayout textInputLayoutLocation = findViewById(R.id.textInputLayoutLocation);
+        TextInputLayout textInputLayoutDate = findViewById(R.id.textInputLayoutDate);
         TextInputLayout textInputLayoutParkingAvailable = findViewById(R.id.textInputLayoutParkingAvailable);
         TextInputLayout textInputLayoutLengthOfHike = findViewById(R.id.textInputLayoutLengthOfHike);
         TextInputLayout textInputLayoutDifficultLevel = findViewById(R.id.textInputLayoutDifficultLevel);
 
         // Ẩn thông báo lỗi và xóa dữ liệu trong EditText
         textInputLayoutName.setErrorEnabled(false); // Tắt hiển thị lỗi
-        textInputLayoutLocation.setErrorEnabled(false); // Tắt hiển thị lỗi
-        textInputLayoutParkingAvailable.setErrorEnabled(false); // Tắt hiển thị lỗi
-        textInputLayoutLengthOfHike.setErrorEnabled(false); // Tắt hiển thị lỗi
-        textInputLayoutDifficultLevel.setErrorEnabled(false); // Tắt hiển thị lỗi
+        textInputLayoutLocation.setErrorEnabled(false);
+        textInputLayoutDate.setErrorEnabled(false);
+        textInputLayoutParkingAvailable.setErrorEnabled(false);
+        textInputLayoutLengthOfHike.setErrorEnabled(false);
+        textInputLayoutDifficultLevel.setErrorEnabled(false);
 
 
         // Lấy dữ liệu từ các trường nhập
@@ -138,30 +134,49 @@ public class UploadActivity extends AppCompatActivity {
         if (name.isEmpty()) {
             textInputLayoutName.setError("Name is required");
             isValid = false;
+        } else {
+            textInputLayoutName.setError(null); // Xóa thông báo lỗi nếu trường hợp lệ
         }
+
         if (location.isEmpty()) {
             textInputLayoutLocation.setError("Location is required");
-                isValid = false;
+            isValid = false;
+        } else {
+            textInputLayoutLocation.setError(null);
         }
+
+        if (date.isEmpty()) {
+            textInputLayoutDate.setError("Date is required");
+            isValid = false;
+        } else {
+            textInputLayoutDate.setError(null);
+        }
+
         if (parkingAvailable.isEmpty()) {
             textInputLayoutParkingAvailable.setError("Parking Available is required");
             isValid = false;
+        } else {
+            textInputLayoutParkingAvailable.setError(null);
         }
+
         if (lengthOfHike.isEmpty()) {
             textInputLayoutLengthOfHike.setError("Length Of Hike is required");
             isValid = false;
+        } else {
+            textInputLayoutLengthOfHike.setError(null);
         }
+
         if (difficultLevel.isEmpty()) {
             textInputLayoutDifficultLevel.setError("Difficult Level is required");
             isValid = false;
-        }
-        else {
-            textInputLayoutName.setError(null); // Xóa thông báo lỗi nếu trường hợp lệ
+        } else {
+            textInputLayoutDifficultLevel.setError(null);
         }
 
         if (!isValid) {
             // Hiển thị thông báo lỗi và không lưu dữ liệu nếu có lỗi
-            return;
+            Toast.makeText(UploadActivity.this, "Vui lòng điền đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
+            return; // Không thực hiện cập nhật nếu có lỗi
         }
 
         // Thực hiện thêm dữ liệu vào cơ sở dữ liệu

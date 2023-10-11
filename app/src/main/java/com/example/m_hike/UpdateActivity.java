@@ -1,14 +1,20 @@
 package com.example.m_hike;
 
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputLayout;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputLayout;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 
 public class UpdateActivity extends AppCompatActivity {
 
@@ -34,6 +40,37 @@ public class UpdateActivity extends AppCompatActivity {
         backButton = findViewById(R.id.backButton);
 
         dbHelper = new DatabaseHelper(this);
+
+        // Set the current date without the time to the "editTextDob" field
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDate = dateFormat.format(new Date());
+        editTextDate.setText(currentDate);
+
+
+        // initialize the datepicker with the current date
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this, null, currentYear, currentMonth, currentDay
+        );
+
+        datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                // Update EditText with the selected date
+                editTextDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+            }
+        });
+
+        editTextDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Show the DatePicker when the EditText is clicked
+                datePickerDialog.show();
+            }
+        });
 
         // Retrieve the ID from the Intent
         Bundle bundle = getIntent().getExtras();
@@ -61,7 +98,6 @@ public class UpdateActivity extends AppCompatActivity {
             }
         }
 
-
         // Set up click listeners for your buttons
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,24 +115,22 @@ public class UpdateActivity extends AppCompatActivity {
     }
 
     private void updateData() {
-        EditText editTextName = findViewById(R.id.editText_Name);
-        EditText editTextLocation = findViewById(R.id.editText_Location);
-        EditText editTextParkingAvailable = findViewById(R.id.editText_ParkingAvailable);
-        EditText editTextLengthOfHike = findViewById(R.id.editText_LengthOfHike);
-        EditText editTextDifficultLevel = findViewById(R.id.editText_DifficultLevel);
-
         TextInputLayout textInputLayoutName = findViewById(R.id.textInputLayoutName);
         TextInputLayout textInputLayoutLocation = findViewById(R.id.textInputLayoutLocation);
+        TextInputLayout textInputLayoutDate = findViewById(R.id.textInputLayoutDate);
         TextInputLayout textInputLayoutParkingAvailable = findViewById(R.id.textInputLayoutParkingAvailable);
         TextInputLayout textInputLayoutLengthOfHike = findViewById(R.id.textInputLayoutLengthOfHike);
         TextInputLayout textInputLayoutDifficultLevel = findViewById(R.id.textInputLayoutDifficultLevel);
 
+
         // Ẩn thông báo lỗi và xóa dữ liệu trong EditText
-        textInputLayoutName.setErrorEnabled(false); // Tắt hiển thị lỗi
-        textInputLayoutLocation.setErrorEnabled(false); // Tắt hiển thị lỗi
-        textInputLayoutParkingAvailable.setErrorEnabled(false); // Tắt hiển thị lỗi
-        textInputLayoutLengthOfHike.setErrorEnabled(false); // Tắt hiển thị lỗi
-        textInputLayoutDifficultLevel.setErrorEnabled(false); // Tắt hiển thị lỗi
+        textInputLayoutName.setErrorEnabled(false);
+        textInputLayoutLocation.setErrorEnabled(false);
+        textInputLayoutDate.setErrorEnabled(false);
+        textInputLayoutParkingAvailable.setErrorEnabled(false);
+        textInputLayoutLengthOfHike.setErrorEnabled(false);
+        textInputLayoutDifficultLevel.setErrorEnabled(false);
+
 
         // Lấy dữ liệu từ các trường chỉnh sửa
         String name = editTextName.getText().toString().trim();
@@ -113,32 +147,52 @@ public class UpdateActivity extends AppCompatActivity {
         if (name.isEmpty()) {
             textInputLayoutName.setError("Name is required");
             isValid = false;
+        } else {
+            textInputLayoutName.setError(null); // Xóa thông báo lỗi nếu trường hợp lệ
         }
+
         if (location.isEmpty()) {
             textInputLayoutLocation.setError("Location is required");
             isValid = false;
+        } else {
+            textInputLayoutLocation.setError(null);
         }
+
+        if (date.isEmpty()) {
+            textInputLayoutDate.setError("Date is required");
+            isValid = false;
+        } else {
+            textInputLayoutDate.setError(null);
+        }
+
         if (parkingAvailable.isEmpty()) {
             textInputLayoutParkingAvailable.setError("Parking Available is required");
             isValid = false;
+        } else {
+            textInputLayoutParkingAvailable.setError(null);
         }
+
         if (lengthOfHike.isEmpty()) {
             textInputLayoutLengthOfHike.setError("Length Of Hike is required");
             isValid = false;
+        } else {
+            textInputLayoutLengthOfHike.setError(null);
         }
+
         if (difficultLevel.isEmpty()) {
             textInputLayoutDifficultLevel.setError("Difficult Level is required");
             isValid = false;
-        }
-        else {
-            textInputLayoutName.setError(null); // Xóa thông báo lỗi nếu trường hợp lệ
+        } else {
+            textInputLayoutDifficultLevel.setError(null);
         }
 
         if (!isValid) {
             // Hiển thị thông báo lỗi và không lưu dữ liệu nếu có lỗi
-            return;
+            Toast.makeText(UpdateActivity.this, "Vui lòng điền đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
+            return; // Không thực hiện cập nhật nếu có lỗi
         }
 
+        // Tiếp tục thực hiện "Update" nếu dữ liệu là hợp lệ
         // Đảm bảo bạn có ID hợp lệ để cập nhật
         if (id > 0) {
             // Thực hiện cập nhật dữ liệu trong cơ sở dữ liệu
@@ -159,4 +213,5 @@ public class UpdateActivity extends AppCompatActivity {
             // Xử lý khi không có ID hợp lệ (ví dụ: hiển thị thông báo)
         }
     }
+
 }

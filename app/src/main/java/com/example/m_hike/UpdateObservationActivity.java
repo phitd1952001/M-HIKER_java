@@ -33,7 +33,7 @@ public class UpdateObservationActivity extends AppCompatActivity {
         hikingId = intent.getIntExtra("hikingId", 0);
 
         editTextName = findViewById(R.id.editText_Name);
-        editTextDate = findViewById(R.id.editText_Date);
+        editTextDate = findViewById(R.id.editTextDate);
         editTextComment = findViewById(R.id.editText_Comment);
         saveButton = findViewById(R.id.updateButton);
         backButton = findViewById(R.id.backButton);

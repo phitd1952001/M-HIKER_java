@@ -56,42 +56,74 @@
                 android:id="@+id/textInputLayoutName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Name"
-                app:boxBackgroundMode="outline"
+                android:layout_marginTop="10dp"
+                android:hint="Enter your name"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeColor="@color/white"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
                 app:helperTextEnabled="false"
+                android:required="true"
                 app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
 
                 <EditText
-                    android:padding="16dp"
                     android:id="@+id/editText_Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/lavender_border"
                     android:inputType="text"
-                    android:background="@drawable/lavender_border"/>
+                    android:paddingTop="22dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:id="@+id/editText_Date"
-                android:background="@drawable/lavender_border"
-                android:layout_marginTop="20dp"
-                android:padding="16dp"
-                android:hint="Enter Date"
-                android:gravity="start|center_vertical"
-                android:textColor="@color/lavender"
-                android:onClick="showDatePickerDialog"/>
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutDate"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:id="@+id/editText_Comment"
-                android:background="@drawable/lavender_border"
-                android:layout_marginTop="20dp"
-                android:padding="16dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Date"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeColor="@color/white"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:helperTextEnabled="false"
+                android:required="true"
+                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+
+                <EditText
+                    android:id="@+id/editTextDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/lavender_border"
+                    android:gravity="start|center_vertical"
+                    android:inputType="text"
+                    android:onClick="showDatePickerDialog"
+                    android:paddingTop="22dp"
+                    android:textColor="@color/lavender" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:hint="Enter Comment"
-                android:gravity="start|center_vertical"
-                android:textColor="@color/lavender" />
+                app:boxBackgroundMode="filled"
+                app:boxStrokeColor="@color/white"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:helperTextEnabled="false"
+                android:required="true"
+                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+
+                <EditText
+                    android:id="@+id/editText_Comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/lavender_border"
+                    android:inputType="text"
+                    android:paddingTop="22dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:layout_width="match_parent"
