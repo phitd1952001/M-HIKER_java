@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class UpdateObservationActivity extends AppCompatActivity {
     Button saveButton, backButton;
@@ -44,7 +45,7 @@ public class UpdateObservationActivity extends AppCompatActivity {
 
         dbHelper = new DatabaseHelper(this);
 
-        // Trích xuất dữ liệu cũ và đặt giá trị cho các ô input
+        // Extract old data and set values for input cells
         String name = intent.getStringExtra("name");
         String date = intent.getStringExtra("date");
         String comment = intent.getStringExtra("comment");
@@ -52,13 +53,20 @@ public class UpdateObservationActivity extends AppCompatActivity {
 
 
         editTextName.setText(name);
+
+        // Parse the old date string and set it in the correct format
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm a", Locale.getDefault());
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm a", Locale.getDefault());
+
+        try {
+            Date oldDate = inputFormat.parse(date);
+            date = outputFormat.format(oldDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         editTextDate.setText(date);
         editTextComment.setText(comment);
-
-        // Set the current date and time to the "editTextDate" field
-        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm a", Locale.getDefault());
-        String currentDateTime = dateTimeFormat.format(new Date());
-        editTextDate.setText(currentDateTime);
 
         // Initialize the DatePickerDialog with the current date
         Calendar calendar = Calendar.getInstance();
@@ -89,7 +97,7 @@ public class UpdateObservationActivity extends AppCompatActivity {
                                 selectedDate.set(Calendar.MINUTE, minute);
 
                                 // Format and set the selected date and time to the "editTextDate" field
-                                SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                                SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm a", Locale.getDefault());
                                 String selectedDateTime = dateTimeFormat.format(selectedDate.getTime());
                                 editTextDate.setText(selectedDateTime);
                             }
@@ -129,21 +137,21 @@ public class UpdateObservationActivity extends AppCompatActivity {
         TextInputLayout textInputLayoutName = findViewById(R.id.textInputLayoutName);
         TextInputLayout textInputLayoutDate = findViewById(R.id.textInputLayoutDate);
 
-        // Ẩn thông báo lỗi và xóa dữ liệu trong EditText
+        // Hidden error notifications and data deletion in EditText
         textInputLayoutName.setErrorEnabled(false);
         textInputLayoutDate.setErrorEnabled(false);
 
         String name = editTextName.getText().toString().trim();
         String date = editTextDate.getText().toString().trim();
 
-        // Kiểm tra và hiển thị thông báo lỗi nếu các trường bắt buộc không hợp lệ
+        // Check and display error notifications if the mandatory schools are invalid
         boolean isValid = true;
 
         if (name.isEmpty()) {
             textInputLayoutName.setError("Name is required");
             isValid = false;
         } else {
-            textInputLayoutName.setError(null); // Xóa thông báo lỗi nếu trường hợp lệ
+            textInputLayoutName.setError(null); // Get data from import fields
         }
 
         if (date.isEmpty()) {
@@ -154,9 +162,9 @@ public class UpdateObservationActivity extends AppCompatActivity {
         }
 
         if (!isValid) {
-            // Hiển thị thông báo lỗi và không lưu dữ liệu nếu có lỗi
-            Toast.makeText(UpdateObservationActivity.this, "Vui lòng điền đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
-            return; // Không thực hiện cập nhật nếu có lỗi
+            // Display error notifications and not save data if there is an error
+            Toast.makeText(UpdateObservationActivity.this, "Please complete all information", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(UpdateObservationActivity.this);
@@ -174,7 +182,7 @@ public class UpdateObservationActivity extends AppCompatActivity {
                 hikingId
                 );
 
-        // Gọi phương thức refreshData() trong MainActivity để cập nhật danh sách dữ liệu
+        // Call the refreshData() method in MainActivity to update the data list
         DetailActivity detailActivity = (DetailActivity) getParent();
         detailActivity.refreshData();
         dialog.dismiss();

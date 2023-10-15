@@ -62,7 +62,7 @@
                 app:boxStrokeWidthFocused="0dp"
                 app:helperTextEnabled="false"
                 android:required="true"
-                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+                app:helperTextTextAppearance="@style/HelperTextNoMargin"><!-- Disable helperText display -->
 
                 <EditText
                     android:id="@+id/editText_Name"
@@ -86,7 +86,7 @@
                 app:boxStrokeWidthFocused="0dp"
                 app:helperTextEnabled="false"
                 android:required="true"
-                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+                app:helperTextTextAppearance="@style/HelperTextNoMargin">
 
                 <EditText
                     android:id="@+id/editText_Location"
@@ -109,7 +109,7 @@
                 app:boxStrokeWidthFocused="0dp"
                 app:helperTextEnabled="false"
                 android:required="true"
-                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+                app:helperTextTextAppearance="@style/HelperTextNoMargin">
 
                 <EditText
                     android:id="@+id/editTextDate"
@@ -138,7 +138,7 @@
                 app:boxStrokeWidthFocused="0dp"
                 app:helperTextEnabled="false"
                 android:required="true"
-                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+                app:helperTextTextAppearance="@style/HelperTextNoMargin">
 
                 <EditText
                     android:id="@+id/editText_ParkingAvailable"
@@ -161,7 +161,7 @@
                 app:boxStrokeWidthFocused="0dp"
                 app:helperTextEnabled="false"
                 android:required="true"
-                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+                app:helperTextTextAppearance="@style/HelperTextNoMargin">
 
                 <EditText
                     android:id="@+id/editText_LengthOfHike"
@@ -184,7 +184,7 @@
                 app:boxStrokeWidthFocused="0dp"
                 app:helperTextEnabled="false"
                 android:required="true"
-                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+                app:helperTextTextAppearance="@style/HelperTextNoMargin">
 
                 <EditText
                     android:id="@+id/editText_DifficultLevel"
@@ -206,7 +206,7 @@
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
                 app:helperTextEnabled="false"
-                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+                app:helperTextTextAppearance="@style/HelperTextNoMargin">
 
                 <EditText
                     android:id="@+id/editText_Description"

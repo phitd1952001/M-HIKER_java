@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new MyAdapter(MainActivity.this, dataList, dbHelper, this);
         recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged(); // Cập nhật RecyclerView
+        adapter.notifyDataSetChanged(); // Update RecyclerView
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -105,12 +105,12 @@ public class MainActivity extends AppCompatActivity {
     //refreshData create
     @SuppressLint("Range")
     public void refreshData() {
-        dataList.clear(); // Xóa dữ liệu hiện tại
+        dataList.clear(); // Delete current data
         int id = 0;
         Cursor cursor = dbHelper.getAllHikingRecords(id);
         if (cursor != null) {
             while (cursor.moveToNext()) {
-                // Lấy dữ liệu từ cursor và thêm vào danh sách
+                // Get data from cursor and add to list
                 id = cursor.getInt(cursor.getColumnIndex("id"));
                 String name = cursor.getString(cursor.getColumnIndex("name"));
                 String location = cursor.getString(cursor.getColumnIndex("location"));
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
             }
             cursor.close();
         }
-        adapter.notifyDataSetChanged(); // Cập nhật RecyclerView
+        adapter.notifyDataSetChanged(); // Update RecyclerView
     }
 
     public void searchList(String text){

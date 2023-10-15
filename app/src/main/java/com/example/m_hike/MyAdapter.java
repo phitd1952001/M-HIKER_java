@@ -139,17 +139,17 @@ class MyViewHolder extends RecyclerView.ViewHolder{
                 // Handle the Update button click
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
-                    // Lấy dữ liệu của mục được nhấp
+                    // Get the data of the clicked item
                     HikingData hikingData = dataList.get(position);
                     int id = hikingData.getId();
 
-                    // Tạo Intent để chuyển sang UpdateActivity
+                    // Create Intent to switch to UpdateActivity
                     Intent intent = new Intent(itemView.getContext(), UpdateActivity.class);
 
-                    // Đính kèm dữ liệu của mục được nhấp vào Intent để chuyển sang UpdateActivity
-                    intent.putExtra("id", String.valueOf(id)); // Đảm bảo id được truyền đúng kiểu dữ liệu
+                    // Attach the clicked item's data to the Intent to pass to UpdateActivity
+                    intent.putExtra("id", String.valueOf(id)); // Make sure the id is passed correctly
 
-                    // Khởi chạy UpdateActivity
+                    // Launch UpdateActivity
                     itemView.getContext().startActivity(intent);
                 }
             }
@@ -162,9 +162,9 @@ class MyViewHolder extends RecyclerView.ViewHolder{
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     HikingData hikingData = dataList.get(position);
-                    int selectedHikingId = hikingData.getId(); // Lấy hikingId từ dữ liệu HikingData
+                    int selectedHikingId = hikingData.getId(); // Get hiking from Hiking Data
 
-                    // Truyền hikingId qua DetailActivity
+                    // Pass hikingId through DetailActivity
                     Intent intent = new Intent(itemView.getContext(), DetailActivity.class);
                     intent.putExtra("hikingId", selectedHikingId);
                     itemView.getContext().startActivity(intent);

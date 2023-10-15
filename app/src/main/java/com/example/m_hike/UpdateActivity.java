@@ -104,11 +104,11 @@ public class UpdateActivity extends AppCompatActivity {
         if (bundle != null) {
             String idString = bundle.getString("id");
 
-            // Kiểm tra xem ID có tồn tại hay không
+            // Check if ID exists or not
             if (idString != null) {
                 id = (int) Long.parseLong(idString);
 
-                // Sử dụng DatabaseHelper để lấy dữ liệu cũ từ cơ sở dữ liệu
+                // Use DatabaseHelper to get old data from the database
                 HikingData hikingData = dbHelper.getHikingRecordById(id);
                 if (hikingData != null) {
                     // Đặt dữ liệu cũ vào các EditText
@@ -121,7 +121,7 @@ public class UpdateActivity extends AppCompatActivity {
                     editTextDescription.setText(hikingData.getDescription());
                 }
             } else {
-                // ID không tồn tại, xử lý tùy ý (ví dụ: hiển thị thông báo)
+                // ID does not exist, handle optionally (e.g. show notification)
             }
         }
 
@@ -136,7 +136,7 @@ public class UpdateActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish(); // Đóng hoạt động cập nhật và quay lại màn hình trước
+                finish(); // Close the update operation and return to the previous screen
             }
         });
     }
@@ -150,7 +150,7 @@ public class UpdateActivity extends AppCompatActivity {
         TextInputLayout textInputLayoutDifficultLevel = findViewById(R.id.textInputLayoutDifficultLevel);
 
 
-        // Ẩn thông báo lỗi và xóa dữ liệu trong EditText
+        // Hide error messages and clear data in EditText
         textInputLayoutName.setErrorEnabled(false);
         textInputLayoutLocation.setErrorEnabled(false);
         textInputLayoutDate.setErrorEnabled(false);
@@ -159,7 +159,7 @@ public class UpdateActivity extends AppCompatActivity {
         textInputLayoutDifficultLevel.setErrorEnabled(false);
 
 
-        // Lấy dữ liệu từ các trường chỉnh sửa
+        // Get data from edit fields
         String name = editTextName.getText().toString().trim();
         String location = editTextLocation.getText().toString().trim();
         String date = editTextDate.getText().toString().trim();
@@ -168,14 +168,14 @@ public class UpdateActivity extends AppCompatActivity {
         String difficultLevel = editTextDifficultLevel.getText().toString().trim();
         String description = editTextDescription.getText().toString().trim();
 
-        // Kiểm tra và hiển thị thông báo lỗi nếu các trường bắt buộc không hợp lệ
+        // Check and display an error message if required fields are invalid
         boolean isValid = true;
 
         if (name.isEmpty()) {
             textInputLayoutName.setError("Name is required");
             isValid = false;
         } else {
-            textInputLayoutName.setError(null); // Xóa thông báo lỗi nếu trường hợp lệ
+            textInputLayoutName.setError(null); // Clear error message if field is valid
         }
 
         if (location.isEmpty()) {
@@ -214,30 +214,30 @@ public class UpdateActivity extends AppCompatActivity {
         }
 
         if (!isValid) {
-            // Hiển thị thông báo lỗi và không lưu dữ liệu nếu có lỗi
-            Toast.makeText(UpdateActivity.this, "Vui lòng điền đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
-            return; // Không thực hiện cập nhật nếu có lỗi
+            // Display an error message and do not save data if there is an error
+            Toast.makeText(UpdateActivity.this, "Please complete all information", Toast.LENGTH_SHORT).show();
+            return; // Do not perform update if there is an error
         }
 
-        // Tiếp tục thực hiện "Update" nếu dữ liệu là hợp lệ
-        // Đảm bảo bạn có ID hợp lệ để cập nhật
+        // Continue performing "Update" if the data is valid
+        // Make sure you have a valid ID to update
         if (id > 0) {
-            // Thực hiện cập nhật dữ liệu trong cơ sở dữ liệu
+            // Perform data updates in the database
             int rowsUpdated = dbHelper.updateHikingRecord(id, name, location, date, parkingAvailable, lengthOfHike, difficultLevel, description);
             if (rowsUpdated > 0) {
-                Toast.makeText(UpdateActivity.this, "Dữ liệu đã được cập nhật.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UpdateActivity.this, "Data has been updated", Toast.LENGTH_SHORT).show();
 
-                // Gọi phương thức refreshData() trong MainActivity để cập nhật danh sách dữ liệu
+                // Call the refreshData() method in MainActivity to update the data list
                 MainActivity mainActivity = (MainActivity) getParent();
                 mainActivity.refreshData();
 
-                setResult(RESULT_OK); // Đặt kết quả là thành công
-                finish(); // Kết thúc hoạt động cập nhật
+                setResult(RESULT_OK); // Set the result to success
+                finish(); // End the update operation
             } else {
-                Toast.makeText(UpdateActivity.this, "Lỗi khi cập nhật dữ liệu.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UpdateActivity.this, "Error updating data", Toast.LENGTH_SHORT).show();
             }
         } else {
-            // Xử lý khi không có ID hợp lệ (ví dụ: hiển thị thông báo)
+            // Handle when there is no valid ID (e.g. display a message)
         }
     }
 

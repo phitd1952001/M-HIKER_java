@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- Button "Back" -->
                 <Button
                     android:id="@+id/backButton"
                     android:layout_width="80dp"
@@ -40,6 +41,7 @@
                     android:text="Back"
                     app:cornerRadius="6dp" />
 
+                <!-- Text "Upload Observation" -->
                 <TextView
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
@@ -52,6 +54,7 @@
 
             </LinearLayout>
 
+            <!-- Input Field for Name -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutName"
                 android:layout_width="match_parent"
@@ -75,7 +78,7 @@
                     android:paddingTop="22dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
+            <!-- Input Field for Date -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutDate"
                 android:layout_width="match_parent"
@@ -104,6 +107,7 @@
                     android:textColor="@color/lavender" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Input Field for Comment -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutComment"
                 android:layout_width="match_parent"
@@ -115,7 +119,7 @@
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
                 app:helperTextEnabled="false"
-                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Disable helperText display -->
 
                 <EditText
                     android:id="@+id/editTextComment"
@@ -126,6 +130,7 @@
                     android:paddingTop="22dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Button "Save" -->
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"

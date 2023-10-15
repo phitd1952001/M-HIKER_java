@@ -13,6 +13,7 @@
         android:background="@color/lavender"
         android:padding="15sp">
 
+        <!-- Button "Back" -->
         <Button
             android:id="@+id/backButton"
             android:layout_width="80dp"
@@ -23,6 +24,7 @@
             android:text="Back"
             app:cornerRadius="6dp" />
 
+        <!-- Text "Observation" -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

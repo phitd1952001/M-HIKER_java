@@ -25,7 +25,7 @@ public class DetailActivity extends AppCompatActivity {
     MyAdapterObservation adapterObservation;
     DatabaseHelper dbHelper;
     int hikingId;
-    HikingData hikingData; // Thêm biến để lưu trữ tên hiking
+    HikingData hikingData; // Add variable to store hike name
 
     @SuppressLint({"MissingInflatedId", "Range"})
     @Override
@@ -40,10 +40,10 @@ public class DetailActivity extends AppCompatActivity {
         // Initialize your dbHelper here
         dbHelper = new DatabaseHelper(this);
 
-        // Lấy tên hiking từ cơ sở dữ liệu
+        // Get the hike name from the database
         hikingData = dbHelper.getHikingRecordById(hikingId);
 
-        // Hiển thị tên hiking lên TextView
+        // Display the hiking name on the TextView
         TextView textViewHikingName = findViewById(R.id.textViewHikingName);
         textViewHikingName.setText(hikingData.getName());
 
@@ -51,11 +51,6 @@ public class DetailActivity extends AppCompatActivity {
         fabCreate = findViewById(R.id.fabCreate);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(DetailActivity.this, 1);
         recyclerViewDetails.setLayoutManager(gridLayoutManager);
-
-        // Thêm 3 bản ghi dữ liệu mẫu vào bảng observation
- //      dbHelper.insertObservationRecord("Sample Name 1", "2023-10-10 10:00 AM", "This is a sample comment 1.", 61);
-//        dbHelper.insertObservationRecord("Sample Name 2", "2023-10-11 11:00 AM", "This is a sample comment 2.", 61);
-//        dbHelper.insertObservationRecord("Sample Name 3", "2023-10-12 12:00 PM", "This is a sample comment 3.", 61);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(DetailActivity.this);
         builder.setCancelable(false);
@@ -100,15 +95,15 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void onBackButtonClick(View view) {
-        // Xử lý sự kiện khi nút "Back" được nhấp vào
-        finish(); // Đóng DetailActivity và quay lại màn hình trước đó
+        // Handle the event when the "Back" button is clicked
+        finish(); // Close DetailActivity and return to the previous screen
     }
 
 
     //refreshData create
     @SuppressLint("Range")
     public void refreshData() {
-        // Khởi tạo danh sách mới để lưu trữ dữ liệu mới
+        // Initialize a new list to store new data
         List<ObservationData> newDataList = new ArrayList<>();
         int id = 0;
         Cursor cursor = dbHelper.getAllObservationRecords(hikingId);
@@ -131,13 +126,13 @@ public class DetailActivity extends AppCompatActivity {
             cursor.close();
         }
 
-        // Xóa danh sách cũ
+        // Delete old list
         dataListObservation.clear();
 
-        // Thêm tất cả dữ liệu mới vào danh sách cũ
+        // Add all new data to the old list
         dataListObservation.addAll(newDataList);
 
-        // Cập nhật RecyclerView
+        // Update RecyclerView
         adapterObservation.notifyDataSetChanged();
     }
 

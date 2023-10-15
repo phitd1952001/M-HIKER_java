@@ -104,26 +104,26 @@ class MyViewHolderObservations extends RecyclerView.ViewHolder{
             public void onClick(View view) {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
-                    // Lấy dữ liệu của mục được nhấp
+                    // Get the data of the clicked item
                     ObservationData observationData = dataList.get(position);
                     int id = observationData.getId();
-                    // Lấy giá trị hikingId từ observationData
+                    // Get hikingId value from observationData
                     int hikingId = observationData.getHikingId();
 
-                    // Tạo Intent để chuyển sang UpdateObservationActivity
+                    // Create Intent to switch to UpdateObservationActivity
                     Intent intent = new Intent(itemView.getContext(), UpdateObservationActivity.class);
 
-                    // Đính kèm dữ liệu của mục được nhấp vào Intent để chuyển sang UpdateObservationActivity
-                    intent.putExtra("id", id); // Đảm bảo id được truyền đúng kiểu dữ liệu
+                    // Attach the clicked item's data to the Intent to switch to UpdateObservationActivity
+                    intent.putExtra("id", id); // Make sure the id is passed as the correct data type
                     // Đính kèm giá trị hikingId vào Intent
                     intent.putExtra("hikingId", hikingId);
 
-                    // Đưa dữ liệu cũ vào Intent
+                    // Put old data into Intent
                     intent.putExtra("name", observationData.getName());
                     intent.putExtra("date", observationData.getTime());
                     intent.putExtra("comment", observationData.getComment());
 
-                    // Khởi chạy UpdateObservationActivity
+                    // Launch UpdateObservationActivity
                     itemView.getContext().startActivity(intent);
                 }
             }

@@ -137,8 +137,8 @@ public class UploadActivity extends AppCompatActivity {
         TextInputLayout textInputLayoutLengthOfHike = findViewById(R.id.textInputLayoutLengthOfHike);
         TextInputLayout textInputLayoutDifficultLevel = findViewById(R.id.textInputLayoutDifficultLevel);
 
-        // Ẩn thông báo lỗi và xóa dữ liệu trong EditText
-        textInputLayoutName.setErrorEnabled(false); // Tắt hiển thị lỗi
+        // Hide error messages and clear data in EditTextt
+        textInputLayoutName.setErrorEnabled(false); // Turn off error display
         textInputLayoutLocation.setErrorEnabled(false);
         textInputLayoutDate.setErrorEnabled(false);
         textInputLayoutParkingAvailable.setErrorEnabled(false);
@@ -155,14 +155,14 @@ public class UploadActivity extends AppCompatActivity {
         String difficultLevel = editTextDifficultLevel.getText().toString().trim();
         String description = editTextDescription.getText().toString().trim();
 
-        // Kiểm tra và hiển thị thông báo lỗi nếu các trường bắt buộc không hợp lệ
+        // Check and display an error message if required fields are invalid
         boolean isValid = true;
 
         if (name.isEmpty()) {
             textInputLayoutName.setError("Name is required");
             isValid = false;
         } else {
-            textInputLayoutName.setError(null); // Xóa thông báo lỗi nếu trường hợp lệ
+            textInputLayoutName.setError(null); // Clear error message if field is valid
         }
 
         if (location.isEmpty()) {
@@ -201,27 +201,27 @@ public class UploadActivity extends AppCompatActivity {
         }
 
         if (!isValid) {
-            // Hiển thị thông báo lỗi và không lưu dữ liệu nếu có lỗi
-            Toast.makeText(UploadActivity.this, "Vui lòng điền đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
-            return; // Không thực hiện cập nhật nếu có lỗi
+            // Display an error message and do not save data if there is an error
+            Toast.makeText(UploadActivity.this, "Please complete all information", Toast.LENGTH_SHORT).show();
+            return; // Do not perform update if there is an error
         }
 
-        // Thực hiện thêm dữ liệu vào cơ sở dữ liệu
+        // Perform adding data to the database
         long newRowId = dbHelper.insertHikingRecord(name, location, date, parkingAvailable, lengthOfHike, difficultLevel, description);
 
         if (newRowId != -1) {
-            // Dữ liệu đã được thêm thành công
-            Toast.makeText(this, "Dữ liệu đã được thêm thành công.", Toast.LENGTH_SHORT).show();
+            // Data has been added successfully
+            Toast.makeText(this, "Data was added successfully", Toast.LENGTH_SHORT).show();
 
-            // Gọi phương thức refreshData() trong MainActivity để cập nhật danh sách dữ liệu
+            // Call the refreshData() method in MainActivity to update the data list
             MainActivity mainActivity = (MainActivity) getParent();
             mainActivity.refreshData();
 
-            // Đóng Activity UploadActivity và quay lại MainActivity
+            // Close Activity UploadActivity and return to MainActivity
             finish();
         } else {
-            // Xử lý lỗi khi thêm dữ liệu không thành công (ví dụ: hiển thị thông báo)
-            Toast.makeText(this, "Lỗi khi thêm dữ liệu.", Toast.LENGTH_SHORT).show();
+            // Handle errors when adding data fails (e.g. display a message)
+            Toast.makeText(this, "Error adding data", Toast.LENGTH_SHORT).show();
         }
     }
 

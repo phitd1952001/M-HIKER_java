@@ -87,7 +87,7 @@
                 app:boxStrokeWidthFocused="0dp"
                 app:boxStrokeColor="@color/white"
                 android:required="true"
-                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Disable helperText display -->
 
                 <EditText
                     android:paddingTop="22dp"
@@ -110,7 +110,7 @@
                 app:boxStrokeWidthFocused="0dp"
                 app:boxStrokeColor="@color/white"
                 android:required="true"
-                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+                app:helperTextTextAppearance="@style/HelperTextNoMargin">
 
                 <EditText
                     android:paddingTop="22dp"
@@ -139,7 +139,7 @@
                 app:boxStrokeWidthFocused="0dp"
                 app:boxStrokeColor="@color/white"
                 android:required="true"
-                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+                app:helperTextTextAppearance="@style/HelperTextNoMargin">
 
                 <EditText
                     android:paddingTop="22dp"
@@ -162,7 +162,7 @@
                 app:boxStrokeWidthFocused="0dp"
                 app:boxStrokeColor="@color/white"
                 android:required="true"
-                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+                app:helperTextTextAppearance="@style/HelperTextNoMargin">
 
                 <EditText
                     android:paddingTop="22dp"
@@ -185,7 +185,7 @@
                 app:boxStrokeWidthFocused="0dp"
                 app:boxStrokeColor="@color/white"
                 android:required="true"
-                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+                app:helperTextTextAppearance="@style/HelperTextNoMargin">
 
                 <EditText
                     android:paddingTop="22dp"
@@ -207,7 +207,7 @@
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
                 app:boxStrokeColor="@color/white"
-                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+                app:helperTextTextAppearance="@style/HelperTextNoMargin">
 
                 <EditText
                     android:paddingTop="22dp"

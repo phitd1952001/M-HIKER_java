@@ -115,22 +115,22 @@ public class UploadObservationActivity  extends AppCompatActivity {
     public void saveData(){
         TextInputLayout textInputLayoutName = findViewById(R.id.textInputLayoutName);
         TextInputLayout textInputLayoutDate = findViewById(R.id.textInputLayoutDate);
-        // Ẩn thông báo lỗi và xóa dữ liệu trong EditText
-        textInputLayoutName.setErrorEnabled(false); // Tắt hiển thị lỗi
+        // Hidden error notifications and data deletion in EditText
+        textInputLayoutName.setErrorEnabled(false);
         textInputLayoutDate.setErrorEnabled(false);
 
-        // Lấy dữ liệu từ các trường nhập
+        // Get data from import fields
         String name = editTextName.getText().toString().trim();
         String date = editTextDate.getText().toString().trim();
 
-        // Kiểm tra và hiển thị thông báo lỗi nếu các trường bắt buộc không hợp lệ
+        // Check and display error notifications if the mandatory schools are invalid
         boolean isValid = true;
 
         if (name.isEmpty()) {
             textInputLayoutName.setError("Name is required");
             isValid = false;
         } else {
-            textInputLayoutName.setError(null); // Xóa thông báo lỗi nếu trường hợp lệ
+            textInputLayoutName.setError(null); // delete error notifications if the case is valid
         }
 
         if (date.isEmpty()) {
@@ -141,9 +141,9 @@ public class UploadObservationActivity  extends AppCompatActivity {
         }
 
         if (!isValid) {
-            // Hiển thị thông báo lỗi và không lưu dữ liệu nếu có lỗi
-            Toast.makeText(UploadObservationActivity.this, "Vui lòng điền đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
-            return; // Không thực hiện cập nhật nếu có lỗi
+            // Display error notifications and not save data if there is an error
+            Toast.makeText(UploadObservationActivity.this, "Please complete all information", Toast.LENGTH_SHORT).show();
+            return; // Do not perform update if there is an error
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(UploadObservationActivity.this);
@@ -162,11 +162,11 @@ public class UploadObservationActivity  extends AppCompatActivity {
                 hikingId
                 );
 
-        // Gọi phương thức refreshData() trong DetailActivity để cập nhật danh sách dữ liệu
+        // Call the refreshData() method in DetailActivity to update the data list
         DetailActivity detailActivity = (DetailActivity) getParent();
         detailActivity.refreshData();
 
-        // Khi bạn đã lưu xong, sử dụng finish() để quay lại DetailActivity
+        // Once you're done saving, use finish() to return to DetailActivity
         finish();
         dialog.dismiss();
     }

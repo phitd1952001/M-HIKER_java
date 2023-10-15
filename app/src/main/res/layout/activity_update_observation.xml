@@ -64,7 +64,7 @@
                 app:boxStrokeWidthFocused="0dp"
                 app:helperTextEnabled="false"
                 android:required="true"
-                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+                app:helperTextTextAppearance="@style/HelperTextNoMargin">
 
                 <EditText
                     android:id="@+id/editText_Name"
@@ -88,7 +88,7 @@
                 app:boxStrokeWidthFocused="0dp"
                 app:helperTextEnabled="false"
                 android:required="true"
-                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+                app:helperTextTextAppearance="@style/HelperTextNoMargin">
 
                 <EditText
                     android:id="@+id/editTextDate"
@@ -115,7 +115,7 @@
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
                 app:helperTextEnabled="false"
-                app:helperTextTextAppearance="@style/HelperTextNoMargin"> <!-- Tắt hiển thị helperText -->
+                app:helperTextTextAppearance="@style/HelperTextNoMargin">
 
                 <EditText
                     android:id="@+id/editText_Comment"
