@@ -74,7 +74,6 @@ class MyViewHolder extends RecyclerView.ViewHolder{
     DatabaseHelper dbHelper;
     MyAdapter adapter;
 
-
     public MyViewHolder(@NonNull View itemView, List<HikingData> dataList, DatabaseHelper dbHelper, MyAdapter adapter) {
         super(itemView);
         this.dataList = dataList;

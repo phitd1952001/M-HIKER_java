@@ -185,8 +185,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rowsUpdated;
     }
 
-
-
     // Delete Observation a record from the table
     public int deleteObservationRecord(long id) {
         SQLiteDatabase db = this.getWritableDatabase();

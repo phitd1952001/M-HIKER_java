@@ -64,7 +64,6 @@ class MyViewHolderObservations extends RecyclerView.ViewHolder{
     DatabaseHelper dbHelper;
     MyAdapterObservation adapterObservation;
 
-
     public MyViewHolderObservations(@NonNull View itemView, List<ObservationData> dataList, DatabaseHelper dbHelper, MyAdapterObservation adapterObservation) {
         super(itemView);
         this.dataList = dataList;
@@ -82,7 +81,6 @@ class MyViewHolderObservations extends RecyclerView.ViewHolder{
         buttonUpdate = itemView.findViewById(R.id.btnUpdate);
 
         // Set click listeners for the buttons
-        // Set click listeners for the buttons
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,8 +94,6 @@ class MyViewHolderObservations extends RecyclerView.ViewHolder{
                 }
             }
         });
-
-
 
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,5 +154,4 @@ class MyViewHolderObservations extends RecyclerView.ViewHolder{
         });
         builder.show();
     }
-
 }

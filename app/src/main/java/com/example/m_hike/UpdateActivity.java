@@ -20,10 +20,9 @@ import java.util.Locale;
 
 
 public class UpdateActivity extends AppCompatActivity {
-
     EditText editTextName, editTextLocation, editTextDate, editTextParkingAvailable, editTextLengthOfHike, editTextDifficultLevel, editTextDescription;
     Button updateButton, backButton;
-    int id; // ID của bản ghi cần cập nhật
+    int id; // ID of the record to update
     DatabaseHelper dbHelper;
 
     @Override
@@ -149,7 +148,6 @@ public class UpdateActivity extends AppCompatActivity {
         TextInputLayout textInputLayoutLengthOfHike = findViewById(R.id.textInputLayoutLengthOfHike);
         TextInputLayout textInputLayoutDifficultLevel = findViewById(R.id.textInputLayoutDifficultLevel);
 
-
         // Hide error messages and clear data in EditText
         textInputLayoutName.setErrorEnabled(false);
         textInputLayoutLocation.setErrorEnabled(false);
@@ -157,7 +155,6 @@ public class UpdateActivity extends AppCompatActivity {
         textInputLayoutParkingAvailable.setErrorEnabled(false);
         textInputLayoutLengthOfHike.setErrorEnabled(false);
         textInputLayoutDifficultLevel.setErrorEnabled(false);
-
 
         // Get data from edit fields
         String name = editTextName.getText().toString().trim();

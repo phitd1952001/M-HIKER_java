@@ -6,7 +6,6 @@ public class ObservationData {
     private String comment;
     private int hikingId;
 
-
     private int id;
 
     public ObservationData(int id, String name, String time, String comment, int hikingId) {
@@ -16,8 +15,6 @@ public class ObservationData {
         this.id = id;
         this.hikingId = hikingId;
     }
-
-
 
     public String getName() {
         return name;
