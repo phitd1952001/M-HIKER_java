@@ -102,6 +102,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void onBackButtonClick(View view) {
+        // Handle the event when the "Back" button is clicked
+        finish(); // Close DetailActivity and return to the previous screen
+    }
+
     //refreshData create
     @SuppressLint("Range")
     public void refreshData() {

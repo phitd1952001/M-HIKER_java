@@ -121,7 +121,7 @@ public class UpdateObservationActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                onBackPressed(); // This will simulate the system's back button press
             }
         });
 

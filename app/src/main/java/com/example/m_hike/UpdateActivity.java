@@ -134,8 +134,8 @@ public class UpdateActivity extends AppCompatActivity {
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                finish(); // Close the update operation and return to the previous screen
+            public void onClick(View v) {
+                onBackPressed(); // This will simulate the system's back button press
             }
         });
     }
@@ -236,6 +236,12 @@ public class UpdateActivity extends AppCompatActivity {
         } else {
             // Handle when there is no valid ID (e.g. display a message)
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
 }
