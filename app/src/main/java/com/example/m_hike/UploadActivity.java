@@ -146,7 +146,7 @@ public class UploadActivity extends AppCompatActivity {
         textInputLayoutDifficultLevel.setErrorEnabled(false);
 
 
-        // Lấy dữ liệu từ các trường nhập
+        // Get data from input fields
         String name = editTextName.getText().toString().trim();
         String location = editTextLocation.getText().toString().trim();
         String date = editTextDate.getText().toString().trim();

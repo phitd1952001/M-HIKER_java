@@ -110,7 +110,7 @@ public class UpdateActivity extends AppCompatActivity {
                 // Use DatabaseHelper to get old data from the database
                 HikingData hikingData = dbHelper.getHikingRecordById(id);
                 if (hikingData != null) {
-                    // Đặt dữ liệu cũ vào các EditText
+                    // Put old data into EditTexts
                     editTextName.setText(hikingData.getName());
                     editTextLocation.setText(hikingData.getLocation());
                     editTextDate.setText(hikingData.getDate());
